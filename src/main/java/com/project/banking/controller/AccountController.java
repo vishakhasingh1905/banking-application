@@ -30,18 +30,18 @@ public class AccountController {
     }
 
     @GetMapping("/getAccount/{id}")
-    public ResponseEntity<AccountDto> getAccountById(@PathVariable Long id){
+    public ResponseEntity<AccountDto> getAccountById(@PathVariable String id){
         AccountDto accountDto = accountService.getAccountById(id);
         return ResponseEntity.ok(accountDto);
     }
     @PutMapping("/deposit/{id}/{amount}")
-    public ResponseEntity<AccountDto> deposit(@PathVariable Long id, @PathVariable double amount){
+    public ResponseEntity<AccountDto> deposit(@PathVariable String id, @PathVariable double amount){
         AccountDto accountDto = accountService.deposit(id, amount);
         return ResponseEntity.ok(accountDto);
     }
 
     @PutMapping("/withdraw/{id}/{amount}")
-    public ResponseEntity<AccountDto> withdraw(@PathVariable Long id, @PathVariable double amount){
+    public ResponseEntity<AccountDto> withdraw(@PathVariable String id, @PathVariable double amount){
         AccountDto accountDto = accountService.withdraw(id, amount);
         return ResponseEntity.ok(accountDto);
     }
@@ -54,19 +54,19 @@ public class AccountController {
         return ResponseEntity.ok("Transfer successful");
     }
     @GetMapping("/{accountId}/transactions")
-    public ResponseEntity<List<TransactionDto>> getTransactionHistory(@PathVariable Long accountId) {
+    public ResponseEntity<List<TransactionDto>> getTransactionHistory(@PathVariable String accountId) {
         List<TransactionDto> transactionHistory = accountService.getTransactionHistory(accountId);
         return ResponseEntity.ok(transactionHistory);
     }
 
     @PutMapping("/lock/{accountId}")
-    public ResponseEntity<String> lockAccount(@PathVariable Long accountId) {
+    public ResponseEntity<String> lockAccount(@PathVariable String accountId) {
         accountService.lockAccount(accountId);
         return ResponseEntity.ok("Account locked successfully");
     }
 
     @PutMapping("/unlock/{accountId}")
-    public ResponseEntity<String> unlockAccount(@PathVariable Long accountId) {
+    public ResponseEntity<String> unlockAccount(@PathVariable String accountId) {
         accountService.unlockAccount(accountId);
         return ResponseEntity.ok("Account unlocked successfully");
     }

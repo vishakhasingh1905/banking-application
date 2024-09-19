@@ -16,21 +16,23 @@ import com.project.banking.mapper.TransactionMapper;
 import com.project.banking.repository.AccountRepository;
 import com.project.banking.repository.TransactionRepository;
 import com.project.banking.service.AccountService;
+
 @Service
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
     private TransactionRepository transactionRepository;
+
     @Override
-    public AccountDto createAccount(AccountDto accountDto){
+    public AccountDto createAccount(AccountDto accountDto) {
         Account account = AccountMapper.mapToAccount(accountDto);
         Account savedAccount = accountRepository.save(account);
         return AccountMapper.mapToAccountDto(savedAccount);
     }
 
     @Override
-    public AccountDto getAccountById(Long id) {
+    public AccountDto getAccountById(String id) {
         Account account = accountRepository
                 .findById(id).orElseThrow(
                         () -> new RuntimeException("Account does not exist")
@@ -39,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDto deposit(Long id, double amount) {
+    public AccountDto deposit(String id, double amount) {
         Account account = accountRepository
                 .findById(id).orElseThrow(
                         () -> new RuntimeException("Account does not exist")
@@ -65,10 +67,8 @@ public class AccountServiceImpl implements AccountService {
         return AccountMapper.mapToAccountDto(savedAccount);
     }
 
-
-
     @Override
-    public AccountDto withdraw(Long id, double amount) {
+    public AccountDto withdraw(String id, double amount) {
         Account account = accountRepository
                 .findById(id).orElseThrow(
                         () -> new RuntimeException("Account does not exist")
@@ -98,9 +98,8 @@ public class AccountServiceImpl implements AccountService {
         return AccountMapper.mapToAccountDto(updatedAccount);
     }
 
-
     @Override
-    public void transferFunds(Long fromAccountId, Long toAccountId, double amount) {
+    public void transferFunds(String fromAccountId, String toAccountId, double amount) {
         Account fromAccount = accountRepository.findById(fromAccountId)
                 .orElseThrow(() -> new RuntimeException("Source account does not exist"));
         Account toAccount = accountRepository.findById(toAccountId)
@@ -145,14 +144,14 @@ public class AccountServiceImpl implements AccountService {
         saveTransaction(creditTransaction);
     }
 
-
     @Override
     public void saveTransaction(TransactionDto transactionDto) {
         Transaction transaction = TransactionMapper.mapToTransaction(transactionDto);
         transactionRepository.save(transaction);
     }
+
     @Override
-    public List<TransactionDto> getTransactionHistory(Long accountId) {
+    public List<TransactionDto> getTransactionHistory(String accountId) {
         List<Transaction> transactions = transactionRepository.findByAccountId(accountId);
         return transactions.stream()
                 .map(TransactionMapper::mapToTransactionDto)
@@ -160,7 +159,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void lockAccount(Long accountId) {
+    public void lockAccount(String accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new RuntimeException("Account does not exist"));
         account.setStatus(AccountStatus.LOCKED);
@@ -168,12 +167,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void unlockAccount(Long accountId) {
+    public void unlockAccount(String accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new RuntimeException("Account does not exist"));
         account.setStatus(AccountStatus.ACTIVE);
         accountRepository.save(account);
     }
-
-
 }
