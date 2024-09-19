@@ -1,4 +1,4 @@
-# ABCD Banking Application
+# Banking Application
 
 ## Overview
 
