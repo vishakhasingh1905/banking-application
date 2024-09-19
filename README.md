@@ -36,21 +36,21 @@ This banking application is a simple yet functional implementation built using S
 
 ### System Architecture
 
-The application uses a standard Spring Boot architecture with RESTful APIs for client-server communication. It leverages Spring Data JPA for database interactions.
+The application uses a standard Spring Boot architecture with RESTful APIs for client-server communication. It leverages Spring Data MongoDB for database interactions, replacing the previous MySQL setup.
 
 ### Key Components
 
 - **Entities:**
-    - **Account:** Represents a bank account.
-    - **Transaction:** Represents a financial transaction.
+    - **Account:** Represents a bank account, stored in MongoDB.
+    - **Transaction:** Represents a financial transaction, stored in MongoDB.
 
 - **DTOs (Data Transfer Objects):**
     - **AccountDto:** Transfers account data.
     - **TransactionDto:** Transfers transaction data.
 
 - **Repositories:**
-    - **AccountRepository:** Manages CRUD operations for accounts.
-    - **TransactionRepository:** Manages CRUD operations for transactions and custom queries for transaction history.
+    - **AccountRepository:** Manages CRUD operations for accounts, using MongoDB.
+    - **TransactionRepository:** Manages CRUD operations for transactions and custom queries for transaction history, using MongoDB.
 
 - **Service Layer:**
     - **AccountService:** Contains business logic for account operations.
@@ -74,14 +74,14 @@ Comprehensive error handling for scenarios such as insufficient funds, account n
 
 ### Database Design
 
-- **Accounts Table:**
-    - `id`: Primary key.
+- **Accounts Collection:**
+    - `id`: Primary key (auto-generated).
     - `account_holder_name`: Name of the account holder.
     - `balance`: Current balance.
     - `status`: Account status (ACTIVE or LOCKED).
 
-- **Transactions Table:**
-    - `id`: Primary key.
+- **Transactions Collection:**
+    - `id`: Primary key (auto-generated).
     - `account_id`: Foreign key linking to the account.
     - `transaction_type`: Type of transaction (DEPOSIT, WITHDRAWAL, TRANSFER_IN, TRANSFER_OUT).
     - `amount`: Transaction amount.

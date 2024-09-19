@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TransactionDto {
 
-    private Long id;
-    private Long accountId;
+    private String id;
+    private String accountId;
     private String transactionType;
     private double amount;
     private LocalDateTime timestamp;
