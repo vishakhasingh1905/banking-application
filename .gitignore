@@ -83,7 +83,21 @@ mvnw.cmd
 
 # IntelliJ IDEA
 .idea/
-*.iml
-*.iws
 
 target/
+
+# Ignore build output directories
+bin/
+build/
+out/
+
+
+# Ignore other common files
+
+*.tmp
+*.bak
+*.swp
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
