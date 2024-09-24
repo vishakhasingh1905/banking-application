@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "0a9bed03-8920-4057-94b6-8d7e20949353",
+		"_postman_id": "7a20243d-da85-4dba-9bb7-cfbf34786897",
 		"name": "Banking-application-collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31820816"
+		"_exporter_id": "38495637"
 	},
 	"item": [
 		{
@@ -207,6 +207,36 @@
 						"accounts",
 						"unlock",
 						"10000001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"accountId\": \"10000002\", \n  \"password\": \"test123\"  \n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"signup"
 					]
 				}
 			},
