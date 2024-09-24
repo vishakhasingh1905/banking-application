@@ -19,7 +19,7 @@ public class Transaction {
     private String id;
 
     @Field("account_id")
-    private String accountId;
+    private long accountId;
 
     @Field("transaction_type")
     private String transactionType;

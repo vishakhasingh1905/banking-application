@@ -16,9 +16,11 @@ import lombok.Setter;
 @Document(collection = "accounts")
 public class Account {
     @Id
-    private String id;
+    private String _id;
 
-    @Field("account_holder_name")
+    @Field("id")
+    private long id;
+
     private String accountHolderName;
 
     private double balance;

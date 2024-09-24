@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class TransactionDto {
 
     private String id;
-    private String accountId;
+    private long accountId;
     private String transactionType;
     private double amount;
     private LocalDateTime timestamp;

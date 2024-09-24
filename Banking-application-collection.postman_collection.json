@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"accountHolderName\": \"John Doe\",\n  \"balance\": 1000.0\n}\n",
+					"raw": "{\n  \"accountHolderName\": \"Vivek Agrawal\",\n  \"balance\": 9000.0\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -48,7 +48,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/accounts/getAccount/66ec499099ed96769c7af73f",
+					"raw": "http://localhost:8080/api/accounts/getAccount/10000002",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -58,7 +58,7 @@
 						"api",
 						"accounts",
 						"getAccount",
-						"66ec499099ed96769c7af73f"
+						"10000002"
 					]
 				}
 			},
@@ -76,7 +76,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/accounts/deposit/66ec499099ed96769c7af73f/500.0",
+					"raw": "http://localhost:8080/api/accounts/deposit/10000001/5000.0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -86,8 +86,8 @@
 						"api",
 						"accounts",
 						"deposit",
-						"66ec499099ed96769c7af73f",
-						"500.0"
+						"10000001",
+						"5000.0"
 					]
 				}
 			},
@@ -99,7 +99,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/accounts/withdraw/66ec499099ed96769c7af73f/200.0",
+					"raw": "http://localhost:8080/api/accounts/withdraw/10000001/200.0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -109,7 +109,7 @@
 						"api",
 						"accounts",
 						"withdraw",
-						"66ec499099ed96769c7af73f",
+						"10000001",
 						"200.0"
 					]
 				}
@@ -123,7 +123,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"fromAccountId\": \"66ec4bcf61e1796bf217caa7\",\n  \"toAccountId\": \"66ec499099ed96769c7af73f\",\n  \"amount\": 100.0\n}\n",
+					"raw": "{\n  \"fromAccountId\": \"10000001\",\n  \"toAccountId\": \"10000002\",\n  \"amount\": 100.0\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -152,7 +152,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/accounts/66ec499099ed96769c7af73f/transactions",
+					"raw": "http://localhost:8080/api/accounts/10000001/transactions",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -161,7 +161,7 @@
 					"path": [
 						"api",
 						"accounts",
-						"66ec499099ed96769c7af73f",
+						"10000001",
 						"transactions"
 					]
 				}
@@ -174,7 +174,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/accounts/lock/66ec499099ed96769c7af73f",
+					"raw": "http://localhost:8080/api/accounts/lock/10000001",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -184,7 +184,7 @@
 						"api",
 						"accounts",
 						"lock",
-						"66ec499099ed96769c7af73f"
+						"10000001"
 					]
 				}
 			},
@@ -196,7 +196,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/accounts/unlock/66ec499099ed96769c7af73f",
+					"raw": "http://localhost:8080/api/accounts/unlock/10000001",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -206,7 +206,7 @@
 						"api",
 						"accounts",
 						"unlock",
-						"66ec499099ed96769c7af73f"
+						"10000001"
 					]
 				}
 			},

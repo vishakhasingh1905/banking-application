@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends MongoRepository<Transaction, String> {
-    List<Transaction> findByAccountId(String accountId);
+    List<Transaction> findByAccountId(Long accountId);
 }

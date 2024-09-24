@@ -3,6 +3,7 @@ package com.project.banking.service.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.project.banking.service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,27 +24,34 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
 
     @Override
     public AccountDto createAccount(AccountDto accountDto) {
+        long generatedId = sequenceGeneratorService.generateSequence("account_sequence");
         Account account = AccountMapper.mapToAccount(accountDto);
+        account.setId(generatedId);
         Account savedAccount = accountRepository.save(account);
         return AccountMapper.mapToAccountDto(savedAccount);
     }
 
     @Override
     public AccountDto getAccountById(String id) {
+        long accountId = Long.parseLong(id);
         Account account = accountRepository
-                .findById(id).orElseThrow(
+                .findById(accountId).orElseThrow(
                         () -> new RuntimeException("Account does not exist")
                 );
+
         return AccountMapper.mapToAccountDto(account);
     }
 
     @Override
     public AccountDto deposit(String id, double amount) {
+        long accountId = Long.parseLong(id);
         Account account = accountRepository
-                .findById(id).orElseThrow(
+                .findById(accountId).orElseThrow(
                         () -> new RuntimeException("Account does not exist")
                 );
 
@@ -57,7 +65,7 @@ public class AccountServiceImpl implements AccountService {
 
         // Save the deposit transaction
         TransactionDto transaction = new TransactionDto();
-        transaction.setAccountId(id);
+        transaction.setAccountId(accountId);
         transaction.setTransactionType("DEPOSIT");
         transaction.setAmount(amount);
         transaction.setTimestamp(LocalDateTime.now());
@@ -69,8 +77,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto withdraw(String id, double amount) {
+        long accountId = Long.parseLong(id);
         Account account = accountRepository
-                .findById(id).orElseThrow(
+                .findById(accountId).orElseThrow(
                         () -> new RuntimeException("Account does not exist")
                 );
 
@@ -88,7 +97,7 @@ public class AccountServiceImpl implements AccountService {
 
         // Save the withdrawal transaction
         TransactionDto transaction = new TransactionDto();
-        transaction.setAccountId(id);
+        transaction.setAccountId(accountId);
         transaction.setTransactionType("WITHDRAWAL");
         transaction.setAmount(amount);
         transaction.setTimestamp(LocalDateTime.now());
@@ -100,9 +109,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void transferFunds(String fromAccountId, String toAccountId, double amount) {
-        Account fromAccount = accountRepository.findById(fromAccountId)
+        long fromId = Long.parseLong(fromAccountId);
+        long toId = Long.parseLong(toAccountId);
+        Account fromAccount = accountRepository.findById(fromId)
                 .orElseThrow(() -> new RuntimeException("Source account does not exist"));
-        Account toAccount = accountRepository.findById(toAccountId)
+        Account toAccount = accountRepository.findById(toId)
                 .orElseThrow(() -> new RuntimeException("Destination account does not exist"));
 
         if (fromAccount.getStatus() == AccountStatus.LOCKED) {
@@ -123,7 +134,7 @@ public class AccountServiceImpl implements AccountService {
 
         // Save the debit transaction for the source account
         TransactionDto debitTransaction = new TransactionDto();
-        debitTransaction.setAccountId(fromAccountId);
+        debitTransaction.setAccountId(fromId);
         debitTransaction.setTransactionType("TRANSFER_OUT");
         debitTransaction.setAmount(amount);
         debitTransaction.setTimestamp(LocalDateTime.now());
@@ -136,7 +147,7 @@ public class AccountServiceImpl implements AccountService {
 
         // Save the credit transaction for the destination account
         TransactionDto creditTransaction = new TransactionDto();
-        creditTransaction.setAccountId(toAccountId);
+        creditTransaction.setAccountId(toId);
         creditTransaction.setTransactionType("TRANSFER_IN");
         creditTransaction.setAmount(amount);
         creditTransaction.setTimestamp(LocalDateTime.now());
@@ -152,7 +163,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<TransactionDto> getTransactionHistory(String accountId) {
-        List<Transaction> transactions = transactionRepository.findByAccountId(accountId);
+        long id = Long.parseLong(accountId);
+        List<Transaction> transactions = transactionRepository.findByAccountId(id);
         return transactions.stream()
                 .map(TransactionMapper::mapToTransactionDto)
                 .toList();
@@ -160,7 +172,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void lockAccount(String accountId) {
-        Account account = accountRepository.findById(accountId)
+        long id = Long.parseLong(accountId);
+        Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account does not exist"));
         account.setStatus(AccountStatus.LOCKED);
         accountRepository.save(account);
@@ -168,7 +181,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void unlockAccount(String accountId) {
-        Account account = accountRepository.findById(accountId)
+        long id = Long.parseLong(accountId);
+        Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account does not exist"));
         account.setStatus(AccountStatus.ACTIVE);
         accountRepository.save(account);

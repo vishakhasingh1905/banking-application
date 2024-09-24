@@ -8,7 +8,6 @@ config/local.env
 
 # Ignore generated files
 *~
-*.log
 *.iml
 *.ipr
 *.iws
@@ -82,4 +81,9 @@ target/*
 mvnw
 mvnw.cmd
 
-.idea
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+target/
